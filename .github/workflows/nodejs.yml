@@ -30,15 +30,15 @@ jobs:
           cache: 'pnpm'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: yarn install --frozen-lockfile
 
       - name: Build
-        run: pnpm build
+        run: yarn build
 
       - name: Test code
-        run: pnpm test:code --detectOpenHandles
+        run: yarn test:code --detectOpenHandles
         env:
           CI: true
 
       - name: Test types
-        run: pnpm test:types
+        run: yarn test:types
