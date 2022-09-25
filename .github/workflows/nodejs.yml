@@ -21,24 +21,24 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Setup pnpm
-        uses: pnpm/action-setup@v2
+        uses: yarn/action-setup@v2
 
       - name: Use Node.js ${{ matrix.node-version }}
         uses: actions/setup-node@v3
         with:
           node-version: ${{ matrix.node-version }}
-          cache: 'pnpm'
+          cache: 'yarn'
 
       - name: Install dependencies
-        run: pnpm install --frozen-lockfile
+        run: yarn install --frozen-lockfile
 
       - name: Build
-        run: pnpm build
+        run: yarn build
 
       - name: Test code
-        run: pnpm test:code --detectOpenHandles
+        run: yarn test:e2e:ci --detectOpenHandles
         env:
           CI: true
 
       - name: Test types
-        run: pnpm test:types
+        run: yarn typecheck
