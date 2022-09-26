@@ -1,13 +1,11 @@
-# .github/workflows/deploy.yml
 name: deploy
-on:
-  pull_request:
-    branches: [ "main" ]
-  push:
-    branches: [ "main" ]
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+on:
+  push:
+    branches:
+      - main
 jobs:
   Deploy-Production:
     runs-on: ubuntu-latest
