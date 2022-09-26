@@ -85,6 +85,7 @@ atlassian-ide-plugin.xml
 .DS_Store
 .AppleDouble
 .LSOverride
+*.pem
 
 # Thumbnails
 ._*
@@ -131,6 +132,10 @@ node_modules/
 # TypeScript cache
 *.tsbuildinfo
 
+# Production
+build
+dist
+
 # Optional npm cache directory
 .npm
 
@@ -169,6 +174,9 @@ out
 
 # Yarn Integrity file
 .yarn-integrity
+
+# Vercel
+.vercel
 
 # yarn v2
 .yarn/cache
