@@ -7,10 +7,14 @@ import {
   Heading,
   Input,
   Stack,
+  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { Link as LinkTo } from "atomic-router-react";
 
-export const SignIn = () => {
+import { SignUpPage } from "@/pages/auth/signUp";
+
+export const View = () => {
   return (
     <Flex
       minH={"100vh"}
@@ -47,6 +51,14 @@ export const SignIn = () => {
               >
                 Sign in
               </Button>
+            </Stack>
+            <Stack pt={6}>
+              <LinkTo to={SignUpPage.route}>
+                <Box textAlign={"center"}>
+                  Don&apos;t have an account?
+                  <Text color={"gray.400"}>Sing up</Text>
+                </Box>
+              </LinkTo>
             </Stack>
           </Stack>
         </Box>

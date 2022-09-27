@@ -1,3 +1,4 @@
+import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import {
   Box,
   Button,
@@ -9,15 +10,16 @@ import {
   Input,
   InputGroup,
   InputRightElement,
-  Link,
   Stack,
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { Link as LinkTo } from "atomic-router-react";
 import { useState } from "react";
-import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 
-export const SignUp = () => {
+import { SignInPage } from "@/pages/auth/signIn";
+
+export const View = () => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
@@ -44,11 +46,11 @@ export const SignUp = () => {
               <FormLabel>Username</FormLabel>
               <Input type="text" />
             </FormControl>
-            <FormControl id="email" isRequired>
+            <FormControl isRequired id="email">
               <FormLabel>Email</FormLabel>
               <Input type="email" />
             </FormControl>
-            <FormControl id="password" isRequired>
+            <FormControl isRequired id="password">
               <FormLabel>Password</FormLabel>
               <InputGroup>
                 <Input type={showPassword ? "text" : "password"} />
@@ -64,7 +66,7 @@ export const SignUp = () => {
                 </InputRightElement>
               </InputGroup>
             </FormControl>
-            <FormControl id="admin" isRequired>
+            <FormControl isRequired id="admin">
               <Checkbox>Are you admin?</Checkbox>
             </FormControl>
 
@@ -82,9 +84,12 @@ export const SignUp = () => {
               </Button>
             </Stack>
             <Stack pt={6}>
-              <Text align={"center"}>
-                Already a user? <Link color={"gray.400"}>Login</Link>
-              </Text>
+              <LinkTo to={SignInPage.route}>
+                <Box textAlign={"center"}>
+                  Already a user?
+                  <Text color={"gray.400"}>Login</Text>
+                </Box>
+              </LinkTo>
             </Stack>
           </Stack>
         </Box>
