@@ -5,39 +5,28 @@ import {
   Flex,
   HStack,
   IconButton,
-  Link,
   Stack,
   Text,
   useColorModeValue,
   useDisclosure,
 } from "@chakra-ui/react";
+import { RouteInstance } from "atomic-router";
 import { Link as LinkTo } from "atomic-router-react";
-import { ReactNode } from "react";
 
 import { SignInPage } from "@/pages/auth/signIn";
 import { SignUpPage } from "@/pages/auth/signUp";
+import { DashboardPage } from "@/pages/dashboard";
 
-const Links = ["Profiles", "Dashboard", "Users"];
-
-const NavLink = ({ children }: { children: ReactNode }) => (
-  <Link
-    px={2}
-    py={1}
-    rounded={"md"}
-    _hover={{
-      textDecoration: "none",
-      bg: useColorModeValue("gray.200", "gray.700"),
-    }}
-    href={"#"}
-  >
-    {children}
-  </Link>
-);
+const Links: { title: string; path: RouteInstance<any> }[] = [
+  { title: "Profiles", path: SignUpPage.route },
+  { title: "Dashboard", path: DashboardPage.route },
+  { title: "Users", path: SignUpPage.route },
+];
 
 export const Header = () => {
   const { isOpen, onOpen, onClose } = useDisclosure();
   return (
-    <Box bg={useColorModeValue("gray.100", "gray.900")} px={{ base: 2, md: 8 }}>
+    <Box bg={useColorModeValue("gray.200", "gray.900")} px={{ base: 2, md: 8 }}>
       <Flex
         h={16}
         alignItems={"center"}
@@ -58,7 +47,7 @@ export const Header = () => {
           justify={{ base: "center", md: "start" }}
         >
           <Avatar
-            size={"sm"}
+            size={"md"}
             src={
               "https://images.unsplash.com/photo-1493666438817-866a91353ca9?ixlib=rb-0.3.5&q=80&fm=jpg&crop=faces&fit=crop&h=200&w=200&s=b616b2c5b373a80ffc9636ba24f7a4a9"
             }
@@ -68,7 +57,20 @@ export const Header = () => {
         <Stack direction={"row"} spacing={6}>
           <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
             {Links.map(link => (
-              <NavLink key={link}>{link}</NavLink>
+              <LinkTo key={link.title} to={link.path}>
+                <Text
+                  px={2}
+                  py={1}
+                  rounded={"md"}
+                  _hover={{
+                    textDecoration: "none",
+                    bg: "gray.400",
+                    color: "white",
+                  }}
+                >
+                  {link.title}
+                </Text>
+              </LinkTo>
             ))}
           </HStack>
           <Flex justify={"flex-start"}>
@@ -95,9 +97,9 @@ export const Header = () => {
                 cursor={"pointer"}
                 px={"1rem"}
                 py={".5rem"}
-                bg={"pink.400"}
+                bg={"gray.500"}
                 _hover={{
-                  bg: "pink.300",
+                  bg: "gray.600",
                 }}
                 borderRadius={"5px"}
               >
@@ -111,7 +113,9 @@ export const Header = () => {
         <Box pb={4} display={{ md: "none" }}>
           <Stack as={"nav"} spacing={4}>
             {Links.map(link => (
-              <NavLink key={link}>{link}</NavLink>
+              <LinkTo key={link.title} to={link.path}>
+                {link.title}
+              </LinkTo>
             ))}
           </Stack>
         </Box>
