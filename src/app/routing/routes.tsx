@@ -6,12 +6,14 @@ import { SignInPage } from "@/pages/auth/signIn";
 import { SignUpPage } from "@/pages/auth/signUp";
 import { DashboardPage } from "@/pages/dashboard";
 import { HomePage } from "@/pages/home";
+import { UsersPage } from "@/pages/users";
 import { MainLayout } from "@/shared/ui/layouts";
 
 const routes = [
   { path: "/login", route: [SignInPage.route] },
   { path: "/register", route: [SignUpPage.route] },
   { path: "/dashboard", route: [DashboardPage.route] },
+  { path: "/users", route: [UsersPage.route] },
   { path: "/", route: HomePage.route },
   // { path: "/article/:id", route: ArticlePage.route },
   // { path: "/404", route: NotFoundPage.route },
@@ -29,6 +31,7 @@ export const RootRoutes = () => {
       <MainLayout>
         <Route route={HomePage.route} view={HomePage.View} />
         <Route route={DashboardPage.route} view={DashboardPage.View} />
+        <Route route={UsersPage.route} view={UsersPage.View} />
       </MainLayout>
     </>
   );

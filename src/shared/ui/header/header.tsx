@@ -1,4 +1,4 @@
-import { CloseIcon, HamburgerIcon } from "@chakra-ui/icons";
+import { CloseIcon, HamburgerIcon, Icon } from "@chakra-ui/icons";
 import {
   Avatar,
   Box,
@@ -12,15 +12,22 @@ import {
 } from "@chakra-ui/react";
 import { RouteInstance } from "atomic-router";
 import { Link as LinkTo } from "atomic-router-react";
+import { IconType } from "react-icons";
+import {
+  HiOutlineChartBar,
+  HiOutlineUserCircle,
+  HiOutlineUsers,
+} from "react-icons/all";
 
 import { SignInPage } from "@/pages/auth/signIn";
 import { SignUpPage } from "@/pages/auth/signUp";
 import { DashboardPage } from "@/pages/dashboard";
+import { UsersPage } from "@/pages/users";
 
-const Links: { title: string; path: RouteInstance<any> }[] = [
-  { title: "Profiles", path: SignUpPage.route },
-  { title: "Dashboard", path: DashboardPage.route },
-  { title: "Users", path: SignUpPage.route },
+const Links: { title: string; path: RouteInstance<any>; icon: IconType }[] = [
+  { title: "Profiles", path: SignUpPage.route, icon: HiOutlineUserCircle },
+  { title: "Dashboard", path: DashboardPage.route, icon: HiOutlineChartBar },
+  { title: "Users", path: UsersPage.route, icon: HiOutlineUsers },
 ];
 
 export const Header = () => {
@@ -58,7 +65,7 @@ export const Header = () => {
           <HStack as={"nav"} spacing={4} display={{ base: "none", md: "flex" }}>
             {Links.map(link => (
               <LinkTo key={link.title} to={link.path}>
-                <Text
+                <Box
                   px={2}
                   py={1}
                   rounded={"md"}
@@ -67,9 +74,12 @@ export const Header = () => {
                     bg: "gray.400",
                     color: "white",
                   }}
+                  display={"flex"}
+                  alignItems={"center"}
+                  gap={"4px"}
                 >
-                  {link.title}
-                </Text>
+                  {link.title} <Icon as={link.icon} />
+                </Box>
               </LinkTo>
             ))}
           </HStack>
@@ -114,7 +124,7 @@ export const Header = () => {
           <Stack as={"nav"} spacing={4}>
             {Links.map(link => (
               <LinkTo key={link.title} to={link.path}>
-                {link.title}
+                {link.title} <Icon as={link.icon} />
               </LinkTo>
             ))}
           </Stack>
