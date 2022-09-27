@@ -1,0 +1,43 @@
+# GitHub Actions workflow
+# https://help.github.com/actions
+
+name: PR
+
+on: [pull_request]
+
+env:
+  VERSION: ${{ github.event.pull_request.number }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: "yarn"
+
+      # Install dependencies
+      - run: yarn -frozen--lockfile
+
+      # Analyze code for potential problems
+      - run: yarn format
+      - run: yarn lint
+      - run: yarn tsc --build
+
+      # Test
+      # - run: yarn test
+
+      # Compile
+      - run: yarn docker:build
+
+      # Deploy
+      - name: Install Vercel CLI
+        run: npm install --global vercel@latest
+      - name: Pull Vercel Environment Information
+        run: vercel pull --yes --environment=production --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Build Project Artifacts
+        run: vercel build --prod --token=${{ secrets.VERCEL_TOKEN }}
+      - name: Deploy Project Artifacts to Vercel
+        run: vercel deploy --prebuilt --prod --token=${{ secrets.VERCEL_TOKEN }}
