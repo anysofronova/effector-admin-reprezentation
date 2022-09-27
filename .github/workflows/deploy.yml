@@ -1,13 +1,47 @@
-name: Vercel Production Deployment
+name: ♾️ Deployment Pipeline
+
 env:
   VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
   VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
 on:
+  pull_request:
+    branches: [dev]
+    types: [opened, synchronize]
   push:
-    branches:
-      - main
+    branches: [dev]
+
 jobs:
-  Deploy-Production:
+  assign_pr_owner:
+    name: 📝 Assign PR to creator
+    runs-on: ubuntu-18.04
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - name: 📝 Assign PR to creator
+        uses: thomaseizinger/assign-pr-creator-action@v1.0.0
+        if: github.event_name == 'pull_request' && github.event.action == 'opened'
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+  lint:
+    name: 💅🏼 Linting
+    runs-on: ubuntu-latest
+    if: "!contains(github.event.head_commit.message, '[skip ci]')"
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v2
+        with:
+          node-version: 16
+          cache: 'yarn'
+      - name: Install dependencies
+        run: yarn install --frozen-lockfile
+      - name: 💅🏼 Linting
+        run: yarn lint
+
+  deploy_production:
+    needs: [ lint ]
+    name: 🔗 Deploy to Vercel
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
