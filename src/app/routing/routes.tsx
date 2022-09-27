@@ -4,10 +4,13 @@ import { createBrowserHistory } from "history";
 
 import { SignInPage } from "@/pages/auth/signIn";
 import { SignUpPage } from "@/pages/auth/signUp";
+import { HomePage } from "@/pages/home";
+import { MainLayout } from "@/shared/ui/layouts";
 
 const routes = [
   { path: "/login", route: [SignInPage.route] },
   { path: "/register", route: [SignUpPage.route] },
+  { path: "/", route: HomePage.route },
   // { path: "/article/:id", route: ArticlePage.route },
   // { path: "/", route: HomePage.route },
   // { path: "/404", route: NotFoundPage.route },
@@ -22,6 +25,9 @@ export const RootRoutes = () => {
     <>
       <Route route={SignInPage.route} view={SignInPage.View} />
       <Route route={SignUpPage.route} view={SignUpPage.View} />
+      <MainLayout>
+        <Route route={HomePage.route} view={HomePage.View} />
+      </MainLayout>
     </>
   );
 };
