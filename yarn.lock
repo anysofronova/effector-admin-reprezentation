@@ -2540,7 +2540,7 @@ at-least-node@^1.0.0:
 
 atomic-router-react@^0.7.4:
   version "0.7.4"
-  resolved "https://registry.npmjs.org/atomic-router-react/-/atomic-router-react-0.7.4.tgz"
+  resolved "https://registry.yarnpkg.com/atomic-router-react/-/atomic-router-react-0.7.4.tgz#76e19162327273a74b734032ff75c2ef834eecfa"
   integrity sha512-8iaLUiWpA7T8Dp3awfykXIX9hebHAbDh98NQil83SmzbjaFQ8MXfy2322hz+bGi0s0Et8tisqDPUfU78VP3zDA==
   dependencies:
     clsx "^1.1.1"
