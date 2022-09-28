@@ -1,3 +1,11 @@
+import { RouterProvider } from "atomic-router-react";
+
+import { RootRoutes, router } from "./routing";
+
 export const Application = () => {
-  return <div>App HELL</div>;
+  return (
+    <RouterProvider router={router}>
+      <RootRoutes />
+    </RouterProvider>
+  );
 };
